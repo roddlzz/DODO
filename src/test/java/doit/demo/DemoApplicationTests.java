@@ -1,4 +1,4 @@
-package Doit.demo;
+package doit.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
