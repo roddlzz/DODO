@@ -1,4 +1,4 @@
-package doit.dodo;
+package doit.dodo.model;
 
 import lombok.Getter;
 import lombok.Setter;

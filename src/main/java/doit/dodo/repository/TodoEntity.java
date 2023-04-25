@@ -1,4 +1,4 @@
-package doit.dodo;
+package doit.dodo.repository;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,4 +23,7 @@ public class TodoEntity {
   private LocalDateTime createdDate;
   private LocalDateTime updatedDate;
   private String memo;
+
+
+
 }
