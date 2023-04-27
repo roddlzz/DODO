@@ -43,7 +43,11 @@ public class TodoController {
     TodoDTO todoDTO = new TodoDTO();
     todoDTO.setContent(todoRequest.getContent());
     todoDTO.setMemo(todoRequest.getMemo());
-    return new TodoResponse(todoDTO.getId(), todoDTO.getContent(), todoDTO.getMemo(), todoDTO.getCreatedDate(), todoDTO.getUpdatedDate());
+    return todoResponse(todoService.createTodo(todoDTO));
+  }
+
+  private TodoResponse todoResponse(TodoDTO todo) {
+    return todoResponse(todo);
   }
 
   @PutMapping("/{id}")
@@ -51,7 +55,7 @@ public class TodoController {
     TodoDTO todo = todoService.getTodo(id);
     todo.setContent(todoRequest.getContent());
     todo.setMemo(todoRequest.getMemo());
-    return new TodoResponse(todo.getId(), todo.getContent(), todo.getMemo(), todo.getCreatedDate(), todo.getUpdatedDate());
+    return todoResponse(todoService.updateTodo(id,todo));
   }
 
   @DeleteMapping("/{id}")
