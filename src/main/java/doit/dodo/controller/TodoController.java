@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,11 +25,16 @@ public class TodoController {
 
   @GetMapping
   public List<TodoResponse> retrieve() {
-    List<TodoResponse> alltodolist = todoService.getAllTodoList();
+    List<TodoDTO> alltodolist = todoService.getAllTodoList();
     List<TodoResponse> todoResponse = alltodolist.stream().map(all ->
-            new TodoResponse(all.getId(), all.getContent(), all.getMemo(),
-                all.getCreatedDate()))
-        .collect(Collectors.toList());
+        new TodoResponse(all.getId(), all.getContent(), all.getMemo(),
+            all.getCreatedDate(), all.getUpdatedDate())).collect(Collectors.toList());
+    return todoResponse;
+  }
+
+  @GetMapping("/{id}")
+  public TodoResponse getTodo(@PathVariable Long id) {
+    TodoDTO todo = todoService.getTodo(id);
     return todoResponse;
   }
 
@@ -37,7 +43,15 @@ public class TodoController {
     TodoDTO todoDTO = new TodoDTO();
     todoDTO.setContent(todoRequest.getContent());
     todoDTO.setMemo(todoRequest.getMemo());
-    return new TodoResponse(todoDTO.getId(), todoDTO.getContent(), todoDTO.getMemo(), todoDTO.getCreatedDate());
+    return new TodoResponse(todoDTO.getId(), todoDTO.getContent(), todoDTO.getMemo(), todoDTO.getCreatedDate(), todoDTO.getUpdatedDate());
+  }
+
+  @PutMapping("/{id}")
+  public TodoResponse modifyTodo(@PathVariable Long id, @RequestBody TodoRequest todoRequest) {
+    TodoDTO todo = todoService.getTodo(id);
+    todo.setContent(todoRequest.getContent());
+    todo.setMemo(todoRequest.getMemo());
+    return new TodoResponse(todo.getId(), todo.getContent(), todo.getMemo(), todo.getCreatedDate(), todo.getUpdatedDate());
   }
 
   @DeleteMapping("/{id}")

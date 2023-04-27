@@ -23,7 +23,4 @@ public class TodoEntity {
   private LocalDateTime createdDate;
   private LocalDateTime updatedDate;
   private String memo;
-
-
-
 }

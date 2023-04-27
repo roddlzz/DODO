@@ -14,6 +14,5 @@ public class TodoResponse {
   private String content;
   private String memo;
   private LocalDateTime createDate;
-
-
+  private LocalDateTime updateDate;
 }
