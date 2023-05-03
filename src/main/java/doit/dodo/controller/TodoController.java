@@ -30,7 +30,6 @@ public class TodoController {
         return allTodoList.stream().map(TodoController::convert).collect(Collectors.toList());
     }
 
-
     @GetMapping("/{id}")
     public TodoResponse getTodo(@PathVariable Long id) {
         TodoDTO todo = todoService.getTodo(id);
